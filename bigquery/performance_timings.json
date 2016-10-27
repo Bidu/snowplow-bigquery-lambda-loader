@@ -1,0 +1,163 @@
+// table atomic.org_w3_performance_timing_1
+[
+  {
+    "type" : "STRING",
+    "name": "schema_vendor",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name": "schema_name",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name": "schema_format",
+    "mode": "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name": "schema_version",
+    "mode": "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name": "root_id",
+    "mode": "nullable"
+  },
+  {
+    "type" : "TIMESTAMP",
+    "name": "root_tstamp",
+    "mode": "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name": "ref_root",
+    "mode": "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name": "ref_tree",
+    "mode": "repeated"
+  },
+  {
+    "type" : "STRING",
+    "name": "ref_parent",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "navigation_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "redirect_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "redirect_end",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "fetch_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "domain_lookup_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "domain_lookup_end",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "secure_connection_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "connect_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "connect_end",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "request_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "response_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "response_end",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "unload_event_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "unload_event_end",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "dom_loading",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "dom_interactive",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "dom_content_loaded_event_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "dom_content_loaded_event_end",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "dom_complete",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "load_event_start",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "load_event_end",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "ms_first_paint",
+    "mode": "nullable"
+  },
+  {
+    "type" : "INTEGER",
+    "name": "chrome_first_paint",
+    "mode": "nullable"
+  }
+]

@@ -1,0 +1,63 @@
+// table atomic.com_snowplowanalytics_snowplow_submit_form_1
+[
+  {
+    "type" : "STRING",
+    "name" : "schema_vendor",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name" : "schema_name",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name" : "schema_format",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name" : "schema_version",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name" : "root_id",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "TIMESTAMP",
+    "name" : "root_tstamp",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name" : "ref_root",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name" : "ref_tree",
+    "mode" : "repeated"
+  },
+  {
+    "type" : "STRING",
+    "name" : "ref_parent",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name" : "form_id",
+    "mode" : "nullable"
+  },
+  {
+    "type" : "STRING",
+    "name" : "form_classes",
+    "mode" : "repeated"
+  },
+  {
+    "type" : "STRING",
+    "name" : "elements",
+    "mode" : "repeated"
+  }
+]
