@@ -13,10 +13,10 @@ var DataBase = function() {
   this.conn = BigQuery(config);
 };
 
-DataBase.prototype.insertInto = function(table, rows) {
+DataBase.prototype.insertInto = function(table, rows, options) {
   var table = this.conn.dataset(ds).table(table);
 
-  table.insert(rows, function (err, insertErrors, apiResponse) {
+  table.insert(rows, (options || {}), function (err, insertErrors, apiResponse) {
     if (err) {
       return console.log('Error while inserting data: %s', err);
     }

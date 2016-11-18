@@ -5,7 +5,7 @@ var Formatter = function() {
 
 };
 
-Formatter.event  = (rawData) => {
+Formatter.event = (rawData) => {
   var content = rawData.split('\t'),
       result = {};
   var counter = 0;
@@ -18,14 +18,18 @@ Formatter.event  = (rawData) => {
     }
   });
 
-  return result;
+  return {
+    insertId: FIELDS['event_id'],
+    json: result
+  };
 };
 
 Formatter.contexts = (evt) => {
-  var contexts = JSON.parse(evt['contexts'])['data'];
+  var evtPayload = evt['json'],
+      contexts = JSON.parse(evtPayload['contexts'])['data'];
 
-  if(evt['unstruct_event'] !== null) {
-    contexts.push(JSON.parse(evt['unstruct_event'])['data']);
+  if(evtPayload['unstruct_event'] !== null) {
+    contexts.push(JSON.parse(evtPayload['unstruct_event'])['data']);
   }
 
   var result = {};
@@ -43,8 +47,8 @@ Formatter.contexts = (evt) => {
       "schema_name" : schemaInfo[1],
       "schema_format" : schemaInfo[2],
       "schema_version" : schemaInfo[3],
-      "root_id" : evt['event_id'],
-      "root_tstamp" : evt['collector_tstamp'],
+      "root_id" : evtPayload['event_id'],
+      "root_tstamp" : evtPayload['collector_tstamp'],
       "ref_root" : "events",
       "ref_tree" : ['events', schemaInfo[1]], // FIXME: remove this tree build hardcoded
       "ref_parent" : 'events',

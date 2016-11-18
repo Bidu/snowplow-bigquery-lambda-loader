@@ -12,7 +12,7 @@ exports.handler = (event, context, callback) => {
   event.Records.forEach((record) => {
     const payload = new Buffer(record.kinesis.data, 'base64').toString();
     const event = Formatter.event(payload),
-          contexts = Formatter.contexts_(event);
+          contexts = Formatter.contexts(event);
 
     Object.keys(contexts).forEach((c) => {
       var key = DataBase.toTableName(c);
@@ -27,7 +27,7 @@ exports.handler = (event, context, callback) => {
     events.push(event);
   });
 
-  db.insertInto('events', events);
+  db.insertInto('events', events, { raw: true });
 
   db.tables(function(tables) {
     Object.keys(nestedData).forEach((table) => {
