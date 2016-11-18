@@ -19,7 +19,7 @@ Formatter.event = (rawData) => {
   });
 
   return {
-    insertId: FIELDS['event_id'],
+    insertId: result['event_id'],
     json: result
   };
 };
