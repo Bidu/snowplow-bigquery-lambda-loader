@@ -25,15 +25,23 @@ Formatter.event = (rawData) => {
 };
 
 Formatter.contexts = (evt) => {
-  var evtPayload = evt['json'],
-      contexts = JSON.parse(evtPayload['contexts'])['data'];
+  var evtPayload = evt['json'];
+  var contexts = JSON.parse(evt['contexts']);
+  var subtables = contexts != null ? contexts['data'] : [];
 
-  if(evtPayload['unstruct_event'] !== null) {
-    contexts.push(JSON.parse(evtPayload['unstruct_event'])['data']);
+  if(evt['unstruct_event'] !== null) {
+    var json = JSON.parse(evt['unstruct_event']);
+    if(json !== null && json['data']) {
+      subtables.push(json['data']);
+    } else {
+      console.log("Event %s has this data: %s",
+                  evt['event_name'],
+                  JSON.stringify(json, null, 2));
+    }
   }
 
   var result = {};
-  contexts.forEach((c) => {
+  subtables.forEach((c) => {
     var schemaInfo = c['schema'].replace('iglu:', '').split('/');
 
     var content = c['data'];
