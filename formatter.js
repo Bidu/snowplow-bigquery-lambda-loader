@@ -26,16 +26,17 @@ Formatter.event = (rawData) => {
 
 Formatter.contexts = (evt) => {
   var evtPayload = evt['json'];
-  var contexts = JSON.parse(evt['contexts']);
+  var contexts = JSON.parse(evtPayload['contexts']);
   var subtables = contexts != null ? contexts['data'] : [];
 
-  if(evt['unstruct_event'] !== null) {
-    var json = JSON.parse(evt['unstruct_event']);
+  if(evtPayload['unstruct_event'] !== null) {
+    var json = JSON.parse(evtPayload['unstruct_event']);
+
     if(json !== null && json['data']) {
       subtables.push(json['data']);
     } else {
       console.log("Event %s has this data: %s",
-                  evt['event_name'],
+                  evtPayload['event_name'],
                   JSON.stringify(json, null, 2));
     }
   }
