@@ -1,0 +1,84 @@
+[
+  {
+    "type": "STRING",
+    "name": "schema_vendor",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_name",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_format",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_version",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "root_id",
+    "mode": "nullable"
+  },
+  {
+    "type": "TIMESTAMP",
+    "name": "root_tstamp",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_root",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_tree",
+    "mode": "repeated"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_parent",
+    "mode": "nullable"
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "mode": "nullable"
+  },
+  {
+    "name": "fired_at",
+    "type": "timestamp",
+    "mode": "nullable"
+  },
+  {
+    "name": "data",
+    "type": "record",
+    "mode": "nullable",
+    "fields": [
+      {
+        "name": "campaign_id",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "list_id",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "mode": "nullable"
+      }
+    ]
+  }
+]

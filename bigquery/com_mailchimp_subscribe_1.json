@@ -1,0 +1,126 @@
+[
+  {
+    "type": "STRING",
+    "name": "schema_vendor",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_name",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_format",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_version",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "root_id",
+    "mode": "nullable"
+  },
+  {
+    "type": "TIMESTAMP",
+    "name": "root_tstamp",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_root",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_tree",
+    "mode": "repeated"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_parent",
+    "mode": "nullable"
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "mode": "nullable"
+  },
+  {
+    "name": "fired_at",
+    "type": "timestamp",
+    "mode": "nullable"
+  },
+  {
+    "name": "data",
+    "type": "record",
+    "mode": "nullable",
+    "fields": [
+      {
+        "name": "email",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "email_type",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "web_id",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ip_opt",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ip_signup",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "list_id",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "merges",
+        "type": "record",
+        "mode": "nullable",
+        "fields" : [
+          {
+            "name": "EMAIL",
+            "type": "string",
+            "mode": "nullable"
+          },
+          {
+            "name": "FNAME",
+            "type": "string",
+            "mode": "nullable"
+          },
+          {
+            "name": "LNAME",
+            "type": "string",
+            "mode": "nullable"
+          },
+          {
+            "name": "INTERESTS",
+            "type": "string",
+            "mode": "nullable"
+          }
+        ]
+      }
+    ]
+  }
+]
