@@ -1,0 +1,151 @@
+[
+  {
+    "type": "STRING",
+    "name": "schema_vendor",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_name",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_format",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_version",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "root_id",
+    "mode": "nullable"
+  },
+  {
+    "type": "TIMESTAMP",
+    "name": "root_tstamp",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_root",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_tree",
+    "mode": "repeated"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_parent",
+    "mode": "nullable"
+  },
+  {
+    "name": "_id",
+    "type": "string",
+    "mode": "nullable"
+  },
+  {
+    "name": "ts",
+    "type": "timestamp",
+    "mode": "nullable"
+  },
+  {
+    "name": "msg",
+    "type": "record",
+    "mode": "nullable",
+    "fields": [
+      {
+        "name": "_id",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "_version",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "clicks",
+        "type": "string",
+        "mode": "repeated"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "metadata",
+        "type": "record",
+        "mode": "nullable",
+        "fields": [
+          {
+            "name": "user_id",
+            "type": "string",
+            "mode": "nullable"
+          }
+        ]
+      },
+      {
+        "name": "opens",
+        "type": "string",
+        "mode": "repeated"
+      },
+      {
+        "name": "sender",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "state",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "subject",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "tags",
+        "type": "string",
+        "mode": "repeated"
+      },
+      {
+        "name": "ts",
+        "type": "timestamp",
+        "mode": "nullable"
+      },
+      {
+        "name": "reject",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "resends",
+        "type": "string",
+        "mode": "repeated"
+      },
+      {
+        "name": "smtp_events",
+        "type": "string",
+        "mode": "repeated"
+      },
+      {
+        "name": "subaccount",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "template",
+        "type": "string",
+        "mode": "nullable"
+      }
+    ]
+  }
+]

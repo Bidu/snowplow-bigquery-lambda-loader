@@ -1,0 +1,280 @@
+[
+  {
+    "type": "STRING",
+    "name": "schema_vendor",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_name",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_format",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "schema_version",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "root_id",
+    "mode": "nullable"
+  },
+  {
+    "type": "TIMESTAMP",
+    "name": "root_tstamp",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_root",
+    "mode": "nullable"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_tree",
+    "mode": "repeated"
+  },
+  {
+    "type": "STRING",
+    "name": "ref_parent",
+    "mode": "nullable"
+  },
+  {
+    "name": "_id",
+    "type": "string",
+    "mode": "nullable"
+  },
+  {
+    "name": "ip",
+    "type": "string",
+    "mode": "nullable"
+  },
+  {
+    "name": "ts",
+    "type": "timestamp",
+    "mode": "nullable"
+  },
+  {
+    "name": "location",
+    "type": "record",
+    "mode": "nullable",
+    "fields": [
+      {
+        "name": "city",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "country_short",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "country",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "latitude",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "longitude",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "postal_code",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "region",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "mode": "nullable"
+      }
+    ]
+  },
+  {
+    "name": "msg",
+    "type": "record",
+    "mode": "nullable",
+    "fields": [
+      {
+        "name": "_id",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "_version",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "clicks",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "metadata",
+        "type": "record",
+        "mode": "nullable",
+        "fields": [
+          {
+            "name": "user_id",
+            "type": "string",
+            "mode": "nullable"
+          }
+        ]
+      },
+      {
+        "name": "opens",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "sender",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "state",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "subject",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "tags",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ts",
+        "type": "timestamp",
+        "mode": "nullable"
+      },
+      {
+        "name": "resends",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "smtp_events",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "template",
+        "type": "string",
+        "mode": "nullable"
+      }
+    ]
+  },
+  {
+    "name": "user_agent_parsed",
+    "type": "record",
+    "mode": "nullable",
+    "fields": [
+      {
+        "name": "mobile",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "os_company_url",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "os_company",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "os_family",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "os_icon",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "os_name",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "os_url",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ua_company_url",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ua_company",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ua_family",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ua_icon",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ua_name",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ua_url",
+        "type": "string",
+        "mode": "nullable"
+      },
+      {
+        "name": "ua_version",
+        "type": "string",
+        "mode": "nullable"
+      }
+    ]
+  },
+  {
+    "name": "user_agent",
+    "type": "string",
+    "mode": "nullable"
+  }
+]
