@@ -1,0 +1,282 @@
+  [
+    {
+        "mode": "NULLABLE",
+        "name": "schema_vendor",
+        "type": "STRING"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "schema_name",
+        "type": "STRING"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "schema_format",
+        "type": "STRING"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "schema_version",
+        "type": "STRING"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "root_tstamp",
+        "type": "TIMESTAMP"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "root_id",
+        "type": "STRING"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "ref_root",
+        "type": "STRING"
+    }
+    ,
+    {
+        "mode": "REPEATED",
+        "name": "ref_tree",
+        "type": "STRING"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "ref_parent",
+        "type": "STRING"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "document_id",
+        "type": "INTEGER"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "proposal_id",
+        "type": "INTEGER"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "seller",
+        "type": "STRING"
+    }
+    ,
+    {
+        "mode": "NULLABLE",
+        "name": "user",
+        "type": "RECORD",
+        "fields": [
+            {
+                "mode": "NULLABLE",
+                "name": "name",
+                "type": "STRING"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "receives_email_marketing",
+                "type": "BOOLEAN"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "phone_number",
+                "type": "STRING"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "receives_insurances_offers",
+                "type": "BOOLEAN"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "mobile_phone_number",
+                "type": "STRING"
+            },
+            {
+                "mode": "REPEATED",
+                "name": "best_contact_periods",
+                "type": "STRING"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "customer",
+                "type": "RECORD",
+                "fields": [
+                   {
+                    "mode": "NULLABLE",
+                    "name": "type",
+                    "type": "STRING"
+                   },
+                   {
+                    "mode": "NULLABLE",
+                    "name": "status",
+                    "type": "STRING"
+                   }
+                   ,
+                   {
+                    "mode": "NULLABLE",
+                    "name": "product",
+                    "type": "STRING"
+                   }
+                ]
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "updated_at",
+                "type": "TIMESTAMP"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "created_at",
+                "type": "TIMESTAMP"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "welcome_mail_sent",
+                "type": "BOOLEAN"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "abnormal",
+                "type": "BOOLEAN"
+            }
+            ,
+            {
+                "mode": "NULLABLE",
+                "name": "fraudster",
+                "type": "BOOLEAN"
+            }
+            ,
+            {
+                "mode": "NULLABLE",
+                "name": "valid_domain",
+                "type": "BOOLEAN"
+            }
+            ,
+            {
+                "mode": "NULLABLE",
+                "name": "origin",
+                "type": "STRING"
+            }
+            ,
+            {
+                "mode": "NULLABLE",
+                "name": "authentication_token",
+                "type": "STRING"
+            }
+            ,
+            {
+                "mode": "NULLABLE",
+                "name": "email",
+                "type": "STRING"
+            }
+            ,
+            {
+                "mode": "NULLABLE",
+                "name": "id",
+                "type": "INTEGER"
+            }
+        ]
+    },
+    {
+        "mode": "NULLABLE",
+        "name": "lead",
+        "type": "RECORD",
+        "fields": [
+            {
+                "mode": "NULLABLE",
+                "name": "system",
+                "type": "STRING"
+            },
+            {
+                "mode": "REPEATED",
+                "name": "quote_requests",
+                "type": "RECORD",
+                "fields": [
+                    {
+                        "mode": "NULLABLE",
+                        "name": "id",
+                        "type": "INTEGER"
+                    },
+                    {
+                        "mode": "NULLABLE",
+                        "name": "author",
+                        "type": "STRING"
+                    },
+                    {
+                        "mode": "NULLABLE",
+                        "name": "lead_id",
+                        "type": "INTEGER"
+                    },
+                    {
+                        "mode": "NULLABLE",
+                        "name": "click_on_email",
+                        "type": "BOOLEAN"
+                    },
+                    {
+                        "mode": "NULLABLE",
+                        "name": "created_at",
+                        "type": "TIMESTAMP"
+                    },
+                    {
+                        "mode": "NULLABLE",
+                        "name": "updated_at",
+                        "type": "TIMESTAMP"
+                    }
+                ]
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "user_id",
+                "type": "INTEGER"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "expired",
+                "type": "BOOLEAN"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "id",
+                "type": "INTEGER"
+            },
+            {
+                "mode": "NULLABLE",
+                "name": "excluded",
+                "type": "BOOLEAN"
+            },
+            {
+                "mode": "REPEATED",
+                "name": "proposals",
+                "type": "RECORD",
+                "fields": [
+                    {
+                        "mode": "NULLABLE",
+                        "name": "id",
+                        "type": "INTEGER"
+                    },
+                    {
+                        "mode": "NULLABLE",
+                        "name": "lead_id",
+                        "type": "INTEGER"
+                    },
+                    {
+                        "mode": "NULLABLE",
+                        "name": "created_at",
+                        "type": "TIMESTAMP"
+                    }
+                ]
+            }
+        ]
+    }
+]
+
