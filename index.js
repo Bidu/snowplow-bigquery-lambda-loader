@@ -31,12 +31,13 @@ exports.handler = (event, context, callback) => {
 
   db.tables(function(tables) {
     Object.keys(nestedData).forEach((table) => {
+      var tableName = DataBase.tableName(table);
       if(tables.indexOf(table) === -1) {
-        console.log('Table %s not found into database', table);
+        console.log('Table %s not found into database', tableName);
         return;
       }
 
-      db.insertInto(table, nestedData[table]);
+      db.insertInto(tableName, nestedData[tableName]);
     });
   });
 
