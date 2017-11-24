@@ -44,4 +44,8 @@ DataBase.toTableName = (schemaName) => {
   ].join('_').replace(/(\.)/gi, '_').toUnderscore();
 };
 
+DataBase.tableName = (table) => {
+  return table['metadata']['tableReference']['tableId'];
+}
+
 module.exports = DataBase;
