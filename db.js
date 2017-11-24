@@ -48,4 +48,8 @@ DataBase.tableName = (table) => {
   return table['metadata']['tableReference']['tableId'];
 }
 
+DataBase.isPartitioned = (table) => {
+  return table['metadata']['timePartitioning'] !== undefined;
+}
+
 module.exports = DataBase;
