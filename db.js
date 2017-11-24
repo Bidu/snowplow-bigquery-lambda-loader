@@ -31,12 +31,7 @@ DataBase.prototype.tables = function(callback) {
     if (err) {
       return callback(err);
     }
-
-    return callback(tables.map((d) => {
-      return d['metadata']['id']
-                .replace(config.projectId + ':', '')
-                .replace(ds + '.', '');
-    }));
+    return callback(tables);
   });
 };
 
