@@ -45,15 +45,6 @@ DataBase.partition = function(row, table){
   return;
 };
 
-DataBase.toTableName = (schemaName) => {
-  const schemaInfo = schemaName.replace('iglu:', '').split('/');
-  return [
-    schemaInfo[0],
-    schemaInfo[1],
-    schemaInfo[3].split('-')[0]
-  ].join('_').replace(/(\.)/gi, '_').toUnderscore();
-};
-
 DataBase.tableName = (table) => {
   return table['metadata']['tableReference']['tableId'];
 }
