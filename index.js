@@ -14,6 +14,8 @@ exports.handler = (event, context, callback) => {
     const event = Formatter.event(payload),
           contexts = Formatter.contexts(event);
 
+    // This logic should be removed from here to the
+    // parser
     Object.keys(contexts).forEach((c) => {
       var key = DataBase.toTableName(c);
 

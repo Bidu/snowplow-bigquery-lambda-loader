@@ -14,6 +14,8 @@ var DataBase = function() {
 };
 
 DataBase.prototype.insertInto = function(table, rows, options) {
+  //Here I should get the table based on name
+  // and insert in the right partition whenever the table is partitioned
   table.insert(rows, (options || {}), function (err, insertErrors, apiResponse) {
     if (err) {
       return console.log('Error while inserting data: %s', err);
