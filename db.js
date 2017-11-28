@@ -14,8 +14,6 @@ var DataBase = function() {
 };
 
 DataBase.prototype.insertInto = function(table, rows, options) {
-  var table = this.conn.dataset(ds).table(table);
-
   table.insert(rows, (options || {}), function (err, insertErrors, apiResponse) {
     if (err) {
       return console.log('Error while inserting data: %s', err);
@@ -25,14 +23,24 @@ DataBase.prototype.insertInto = function(table, rows, options) {
   });
 }
 
-DataBase.prototype.tables = function(callback) {
+DataBase.prototype.table = function(tableName, callback) {
   var dataset = this.conn.dataset(ds);
-  dataset.getTables(function (err, tables) {
+  dataset.table(tableName).get(function (err, table, apiResponse) {
     if (err) {
       return callback(err);
     }
-    return callback(tables);
+    return callback(null, table);
   });
+};
+
+DataBase.partition = function(row, table){
+  var partitioning = table['metadata']['timePartitioning'];
+
+  if(partitioning !== undefined && partitioning['field'] !== undefined) {
+    return row[partitioning['field']].substring(0,10).replace(/\-/g, '');
+  }
+
+  return;
 };
 
 DataBase.toTableName = (schemaName) => {
