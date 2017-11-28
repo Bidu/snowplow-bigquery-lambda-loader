@@ -12,19 +12,9 @@ exports.handler = (event, context, callback) => {
   event.Records.forEach((record) => {
     const payload = new Buffer(record.kinesis.data, 'base64').toString();
     const event = Formatter.event(payload),
-          contexts = Formatter.contexts(event);
+          contexts = Formatter.contexts(event),
 
-    // This logic should be removed from here to the
-    // parser
-    Object.keys(contexts).forEach((c) => {
-      var key = DataBase.toTableName(c);
-
-      if(nestedData[key] === undefined) {
-        nestedData[key] = [];
-      }
-
-      nestedData[key].push(contexts[c]);
-    });
+    Formatter.nestedEvents(contexts, nestedData);
 
     events.push(event);
   });

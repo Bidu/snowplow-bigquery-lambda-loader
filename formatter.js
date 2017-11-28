@@ -67,6 +67,18 @@ Formatter.contexts = (evt) => {
   return result;
 };
 
+Formatter.nestedEvents = (contexts, data) => {
+  Object.keys(contexts).forEach((c) => {
+    var key = c.toTableName();
+
+    if(data[key] === undefined) {
+      data[key] = [];
+    }
+
+    data[key].push(contexts[c]);
+  });
+}
+
 Formatter.sanitize = (value) => {
   if(value === "")
     return null;
