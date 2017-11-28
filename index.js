@@ -27,17 +27,35 @@ exports.handler = (event, context, callback) => {
     events.push(event);
   });
 
-  db.insertInto('events', events, { raw: true });
+  db.table('events', function(err, table) {
+    db.insertInto(table, events, { raw: true });
+  });
 
-  db.tables(function(tables) {
-    Object.keys(nestedData).forEach((table) => {
-      var tableName = DataBase.tableName(table);
-      if(tables.indexOf(table) === -1) {
-        console.log('Table %s not found into database', tableName);
+  Object.keys(nestedData).forEach((tableName) => {
+    db.table(tableName, function(err, table){
+      if(err){
+        console.log(err);
         return;
       }
 
-      db.insertInto(tableName, nestedData[tableName]);
+      // Partition search should be made by the method insertInto
+      if(!DataBase.isPartitioned(table)){
+        db.insertInto(table, nestedData[tableName]);
+      } else {
+        nestedData[tableName].forEach((row) => {
+          var partition = db.partition(table, row);
+
+          db.table([tableName, partition].join('$'), function(err, table) {
+            if(err) {
+              console.log(err);
+              return;
+            }
+
+            db.insertInto(table, row);
+          });
+        });
+
+      }
     });
   });
 
