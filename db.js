@@ -13,21 +13,53 @@ var DataBase = function() {
   this.conn = BigQuery(config);
 };
 
-DataBase.prototype.insertInto = function(table, rows, options) {
+DataBase.prototype.insertInto = function(tableName, rows, options) {
   //Here I should get the table based on name
   // and insert in the right partition whenever the table is partitioned
-  table.insert(rows, (options || {}), function (err, insertErrors, apiResponse) {
-    if (err) {
-      return console.log('Error while inserting data: %s', err);
-    }
-    console.log('Response of insert into %s, %s', table['id'], JSON.stringify(apiResponse, null, 2));
-    console.log('Inserted %d row(s)', rows.length);
+  rows.forEach((row) => {
+    // First, we get the table object with all available information
+    this.table(tableName, function(err, table) {
+      if (err) {
+        console.log(`Sorry! We've got an error while fetching the table ${tableName}.\nERROR: ${err}`);
+        return;
+      }
+      // Insert if table is not partitioned
+      if (!DataBase.isPartitioned(table)) {
+        table.insert(row, options, function(err, insertErrors, apiResponse) {
+          if (err) {
+            return console.log('Error while inserting data: %s', err);
+          }
+          console.log('Response of insert into %s, %s', table['id'], JSON.stringify(apiResponse, null, 2));
+          console.log('Inserted %d row(s)', rows.length);
+        });
+      } else {
+        // Look for the right partition
+        var partition = DataBase.partition(table, row);
+        var tablePartition = [tableName, partition].join('$');
+
+        // Insert into partitioned table
+        this.table(tablePartition, function(err, table) {
+          if (err) {
+            console.log(`Sorry! We've got an error while fetching the table ${tablePartition}.\nERROR: ${err}`);
+            return;
+          }
+          table.insert(row, options, function(err, insertErrors, apiResponse) {
+            if (err) {
+              return console.log('Error while inserting data: %s', err);
+            }
+            console.log('Response of insert into %s, %s', table['id'], JSON.stringify(apiResponse, null, 2));
+            console.log('Inserted %d row(s)', rows.length);
+          });
+        });
+
+      }
+    });
   });
-}
+};
 
 DataBase.prototype.table = function(tableName, callback) {
   var dataset = this.conn.dataset(ds);
-  dataset.table(tableName).get(function (err, table, apiResponse) {
+  dataset.table(tableName).get(function(err, table, apiResponse) {
     if (err) {
       return callback(err);
     }
@@ -35,11 +67,11 @@ DataBase.prototype.table = function(tableName, callback) {
   });
 };
 
-DataBase.partition = function(row, table){
+DataBase.partition = function(row, table) {
   var partitioning = table['metadata']['timePartitioning'];
 
-  if(partitioning !== undefined && partitioning['field'] !== undefined) {
-    return row[partitioning['field']].substring(0,10).replace(/\-/g, '');
+  if (partitioning !== undefined && partitioning['field'] !== undefined) {
+    return row[partitioning['field']].substring(0, 10).replace(/\-/g, '');
   }
 
   return;

@@ -7,48 +7,22 @@ var db = new DataBase();
 
 exports.handler = (event, context, callback) => {
   var events = [],
-      nestedData = {};
+    nestedData = {};
 
   event.Records.forEach((record) => {
     const payload = new Buffer(record.kinesis.data, 'base64').toString();
     const event = Formatter.event(payload),
-          contexts = Formatter.contexts(event),
+      contexts = Formatter.contexts(event),
 
-    Formatter.nestedEvents(contexts, nestedData);
+      Formatter.nestedEvents(contexts, nestedData);
 
     events.push(event);
   });
 
-  db.table('events', function(err, table) {
-    db.insertInto(table, events, { raw: true });
-  });
+  db.insertInto('events', events, { raw: true });
 
   Object.keys(nestedData).forEach((tableName) => {
-    db.table(tableName, function(err, table){
-      if(err){
-        console.log(err);
-        return;
-      }
-
-      // Partition search should be made by the method insertInto
-      if(!DataBase.isPartitioned(table)){
-        db.insertInto(table, nestedData[tableName]);
-      } else {
-        nestedData[tableName].forEach((row) => {
-          var partition = db.partition(table, row);
-
-          db.table([tableName, partition].join('$'), function(err, table) {
-            if(err) {
-              console.log(err);
-              return;
-            }
-
-            db.insertInto(table, row);
-          });
-        });
-
-      }
-    });
+    db.insertInto(tableName, nestedData[tableName]);
   });
 
   callback(null, `Successfully processed ${event.Records.length} records.`);
