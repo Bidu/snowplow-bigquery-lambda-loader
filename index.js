@@ -1,8 +1,6 @@
 var DataBase = require('./db.js');
 var Formatter = require('./formatter.js');
 
-require('./extend.js');
-
 var db = new DataBase();
 
 exports.handler = (event, context, callback) => {
