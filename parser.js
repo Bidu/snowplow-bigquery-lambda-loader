@@ -1,20 +1,20 @@
 require('./fields.js');
 var extend = require('util')._extend;
 
-var Formatter = function() {
+var Parser = function() {
 
 };
 
-Formatter.event = (rawData) => {
+Parser.event = (rawData) => {
   var content = rawData.split('\t'),
       result = {};
   var counter = 0;
 
   FIELDS.forEach((f) => {
     if(typeof(f) === 'object') {
-      result[f['field']] = Formatter.sanitize(f['transform'](content[counter ++]));
+      result[f['field']] = Parser.sanitize(f['transform'](content[counter ++]));
     } else {
-      result[f] = Formatter.sanitize(content[counter ++]);
+      result[f] = Parser.sanitize(content[counter ++]);
     }
   });
 
@@ -24,7 +24,7 @@ Formatter.event = (rawData) => {
   };
 };
 
-Formatter.contexts = (evt) => {
+Parser.contexts = (evt) => {
   var evtPayload = evt['json'];
   var contexts = JSON.parse(evtPayload['contexts']);
   var subtables = contexts != null ? contexts['data'] : [];
@@ -67,7 +67,7 @@ Formatter.contexts = (evt) => {
   return result;
 };
 
-Formatter.nestedEvents = (contexts, data) => {
+Parser.nestedEvents = (contexts, data) => {
   Object.keys(contexts).forEach((c) => {
     var key = c.toTableName();
 
@@ -79,11 +79,11 @@ Formatter.nestedEvents = (contexts, data) => {
   });
 }
 
-Formatter.sanitize = (value) => {
+Parser.sanitize = (value) => {
   if(value === "")
     return null;
 
   return value;
 };
 
-module.exports = Formatter;
+module.exports = Parser;

@@ -1,5 +1,5 @@
 var DataBase = require('./db.js');
-var Formatter = require('./formatter.js');
+var Parser = require('./parser.js');
 
 var db = new DataBase();
 
@@ -9,10 +9,10 @@ exports.handler = (event, context, callback) => {
 
   event.Records.forEach((record) => {
     const payload = new Buffer(record.kinesis.data, 'base64').toString();
-    const event = Formatter.event(payload),
-      contexts = Formatter.contexts(event),
+    const event = Parser.event(payload),
+      contexts = Parser.contexts(event),
 
-      Formatter.nestedEvents(contexts, nestedData);
+      Parser.nestedEvents(contexts, nestedData);
 
     events.push(event);
   });
