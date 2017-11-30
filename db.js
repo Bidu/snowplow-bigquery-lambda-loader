@@ -16,9 +16,10 @@ var DataBase = function() {
 DataBase.prototype.insertInto = function(tableName, rows, options) {
   //Here I should get the table based on name
   // and insert in the right partition whenever the table is partitioned
+  var me = this;
   rows.forEach((row) => {
     // First, we get the table object with all available information
-    this.table(tableName, function(err, table) {
+    me.table(tableName, function(err, table) {
       if (err) {
         console.log(`Sorry! We've got an error while fetching the table ${tableName}.\nERROR: ${err}`);
         return;
@@ -38,7 +39,7 @@ DataBase.prototype.insertInto = function(tableName, rows, options) {
         var tablePartition = [tableName, partition].join('$');
 
         // Insert into partitioned table
-        this.table(tablePartition, function(err, table) {
+        me.table(tablePartition, function(err, table) {
           if (err) {
             console.log(`Sorry! We've got an error while fetching the table ${tablePartition}.\nERROR: ${err}`);
             return;
