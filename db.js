@@ -35,8 +35,8 @@ DataBase.prototype.insertInto = function(tableName, rows, options) {
         });
       } else {
         // Look for the right partition
-        var partition = DataBase.partition(table, row);
-        var tablePartition = [tableName, partition].join('$');
+        var partition = DataBase.partition(row, table);
+        var tablePartition = partition ? [tableName, partition].join('$') : tableName;
 
         // Insert into partitioned table
         me.table(tablePartition, function(err, table) {
