@@ -26,7 +26,7 @@ DataBase.prototype.insertInto = function(tableName, rows, options) {
       }
       // Insert if table is not partitioned
       if (!DataBase.isPartitioned(table)) {
-        table.insert(row, options, function(err, insertErrors, apiResponse) {
+        table.insert(row, (options || {}), function(err, insertErrors, apiResponse) {
           if (err) {
             return console.log('Error while inserting data: %s', err);
           }
@@ -44,7 +44,7 @@ DataBase.prototype.insertInto = function(tableName, rows, options) {
             console.log(`Sorry! We've got an error while fetching the table ${tablePartition}.\nERROR: ${err}`);
             return;
           }
-          table.insert(row, options, function(err, insertErrors, apiResponse) {
+          table.insert(row, options || {}, function(err, insertErrors, apiResponse) {
             if (err) {
               return console.log('Error while inserting data: %s', err);
             }
