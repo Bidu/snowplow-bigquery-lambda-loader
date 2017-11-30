@@ -9,6 +9,8 @@ const config = {
 
 const ds = 'atomic';
 
+const PARTITION_FIELDS = ['updated_at', 'created_at', 'fired_at', 'ts'];
+
 var BigQuery = function() {
   this.conn = BigQueryClient(config);
 };
@@ -24,8 +26,10 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
         console.log(`Sorry! We've got an error while fetching the table ${tableName}.\nERROR: ${err}`);
         return;
       }
-      // Insert if table is not partitioned
-      if (!BigQuery.isPartitioned(table)) {
+      var isPartitioned = BigQuery.isPartitioned(table);
+      var tablePartition = isPartitioned ? BigQuery.partition(row, table) : undefined;
+      // Insert if table is not partitioned or partition column is not defined
+      if (!isPartitioned || tablePartition === undefined) {
         table.insert(row, (options || {}), function(err, insertErrors, apiResponse) {
           if (err) {
             return console.log('Error while inserting data: %s', err);
@@ -34,10 +38,6 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
           console.log('Inserted %d row(s)', rows.length);
         });
       } else {
-        // Look for the right partition
-        var partition = BigQuery.partition(row, table);
-        var tablePartition = partition ? [tableName, partition].join('$') : tableName;
-
         // Insert into partitioned table
         me.table(tablePartition, function(err, table) {
           if (err) {
@@ -69,13 +69,22 @@ BigQuery.prototype.table = function(tableName, callback) {
 };
 
 BigQuery.partition = function(row, table) {
-  var partitioning = table['metadata']['timePartitioning'];
+  var schema = table.metadata.schema.fields;
+  var timestampFields = schema.filter((field) => {
+    return field.type == 'TIMESTAMP' && field.name != 'root_tstamp';
+  }).map((field) => field.name);
 
-  if (partitioning !== undefined && partitioning['field'] !== undefined) {
-    return row[partitioning['field']].substring(0, 10).replace(/\-/g, '');
+  var partitionField = PARTITION_FIELDS.find((field) => {
+    return timestampFields.indexOf(field) > 0;
+
+  })
+
+  if (partitionField) {
+    var partitionDate = row[partitionField].substring(0, 10).replace(/\-/g, '');
+    return [BigQuery.tableName(table), partitionDate].join('$')
   }
 
-  return;
+  return BigQuery.tableName(table);
 };
 
 BigQuery.tableName = (table) => table['metadata']['tableReference']['tableId'];
