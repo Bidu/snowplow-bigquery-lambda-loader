@@ -1,4 +1,4 @@
-var BigQuery = require('google-cloud/node_modules/@google-cloud/bigquery');
+var BigQueryClient = require('google-cloud/node_modules/@google-cloud/bigquery');
 
 const projectData = require('./auth.json');
 
@@ -9,11 +9,11 @@ const config = {
 
 const ds = 'atomic';
 
-var DataBase = function() {
-  this.conn = BigQuery(config);
+var BigQuery = function() {
+  this.conn = BigQueryClient(config);
 };
 
-DataBase.prototype.insertInto = function(tableName, rows, options) {
+BigQuery.prototype.insertInto = function(tableName, rows, options) {
   //Here I should get the table based on name
   // and insert in the right partition whenever the table is partitioned
   var me = this;
@@ -25,7 +25,7 @@ DataBase.prototype.insertInto = function(tableName, rows, options) {
         return;
       }
       // Insert if table is not partitioned
-      if (!DataBase.isPartitioned(table)) {
+      if (!BigQuery.isPartitioned(table)) {
         table.insert(row, (options || {}), function(err, insertErrors, apiResponse) {
           if (err) {
             return console.log('Error while inserting data: %s', err);
@@ -35,7 +35,7 @@ DataBase.prototype.insertInto = function(tableName, rows, options) {
         });
       } else {
         // Look for the right partition
-        var partition = DataBase.partition(row, table);
+        var partition = BigQuery.partition(row, table);
         var tablePartition = partition ? [tableName, partition].join('$') : tableName;
 
         // Insert into partitioned table
@@ -58,7 +58,7 @@ DataBase.prototype.insertInto = function(tableName, rows, options) {
   });
 };
 
-DataBase.prototype.table = function(tableName, callback) {
+BigQuery.prototype.table = function(tableName, callback) {
   var dataset = this.conn.dataset(ds);
   dataset.table(tableName).get(function(err, table, apiResponse) {
     if (err) {
@@ -68,7 +68,7 @@ DataBase.prototype.table = function(tableName, callback) {
   });
 };
 
-DataBase.partition = function(row, table) {
+BigQuery.partition = function(row, table) {
   var partitioning = table['metadata']['timePartitioning'];
 
   if (partitioning !== undefined && partitioning['field'] !== undefined) {
@@ -78,8 +78,8 @@ DataBase.partition = function(row, table) {
   return;
 };
 
-DataBase.tableName = (table) => table['metadata']['tableReference']['tableId'];
+BigQuery.tableName = (table) => table['metadata']['tableReference']['tableId'];
 
-DataBase.isPartitioned = (table) => table['metadata']['timePartitioning'] !== undefined;
+BigQuery.isPartitioned = (table) => table['metadata']['timePartitioning'] !== undefined;
 
-module.exports = DataBase;
+module.exports = BigQuery;

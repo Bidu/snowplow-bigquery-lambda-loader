@@ -1,7 +1,7 @@
-var DataBase = require('./db.js');
+var BigQuery = require('./bigquery.js');
 var Parser = require('./parser.js');
 
-var db = new DataBase();
+var bq = new BigQuery();
 
 exports.handler = (event, context, callback) => {
   var events = [],
@@ -17,10 +17,10 @@ exports.handler = (event, context, callback) => {
     events.push(event);
   });
 
-  db.insertInto('events', events, { raw: true });
+  bq.insertInto('events', events, { raw: true });
 
   Object.keys(nestedData).forEach((tableName) => {
-    db.insertInto(tableName, nestedData[tableName]);
+    bq.insertInto(tableName, nestedData[tableName]);
   });
 
   callback(null, `Successfully processed ${event.Records.length} records.`);
