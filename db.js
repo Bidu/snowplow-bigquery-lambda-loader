@@ -78,12 +78,8 @@ DataBase.partition = function(row, table) {
   return;
 };
 
-DataBase.tableName = (table) => {
-  return table['metadata']['tableReference']['tableId'];
-}
+DataBase.tableName = (table) => table['metadata']['tableReference']['tableId'];
 
-DataBase.isPartitioned = (table) => {
-  return table['metadata']['timePartitioning'] !== undefined;
-}
+DataBase.isPartitioned = (table) => table['metadata']['timePartitioning'] !== undefined;
 
 module.exports = DataBase;
