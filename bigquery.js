@@ -18,10 +18,9 @@ var BigQuery = function() {
 BigQuery.prototype.insertInto = function(tableName, rows, options) {
   //Here I should get the table based on name
   // and insert in the right partition whenever the table is partitioned
-  var me = this;
   rows.forEach((row) => {
     // First, we get the table object with all available information
-    me.table(tableName, function(err, table) {
+    this.table(tableName, function(err, table) {
       if (err) {
         console.log(`Sorry! We've got an error while fetching the table ${tableName}.\nERROR: ${err}`);
         return;
@@ -39,7 +38,7 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
         });
       } else {
         // Insert into partitioned table
-        me.table(tablePartition, function(err, table) {
+        this.table(tablePartition, function(err, table) {
           if (err) {
             console.log(`Sorry! We've got an error while fetching the table ${tablePartition}.\nERROR: ${err}`);
             return;
