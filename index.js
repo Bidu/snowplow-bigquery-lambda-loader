@@ -10,7 +10,7 @@ exports.handler = (event, context, callback) => {
   event.Records.forEach((record) => {
     const payload = new Buffer(record.kinesis.data, 'base64').toString();
     const event = Parser.event(payload),
-      contexts = Parser.contexts(event),
+      contexts = Parser.contexts(event);
 
       Parser.nestedEvents(contexts, nestedData);
 
