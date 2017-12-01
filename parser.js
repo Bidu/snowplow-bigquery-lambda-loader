@@ -1,4 +1,5 @@
 require('./fields.js');
+require('./extend.js');
 var extend = require('util')._extend;
 
 var Parser = function() {
@@ -77,7 +78,7 @@ Parser.nestedEvents = (contexts, data) => {
 
     data[key].push(contexts[c]);
   });
-}
+};
 
 Parser.sanitize = (value) => {
   if(value === "")
