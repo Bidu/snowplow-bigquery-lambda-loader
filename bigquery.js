@@ -9,7 +9,7 @@ const config = {
 
 const ds = 'atomic';
 
-const PARTITION_FIELDS = ['updated_at', 'created_at', 'fired_at', 'ts'];
+const PARTITION_FIELDS = process.env['PARTITION_FIELDS'].split(',');
 
 var BigQuery = function() {
   this.conn = BigQueryClient(config);
