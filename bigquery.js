@@ -79,7 +79,7 @@ BigQuery.partitionName = function(row, table) {
 
   if (partitionField) {
     var partitionDate = row[partitionField].substring(0, 10).replace(/\-/g, '');
-    return [BigQuery.tableName(table), partitionDate].join('$')
+    return [BigQuery.tableName(table), partitionDate].join('$');
   }
 
   return BigQuery.tableName(table);
