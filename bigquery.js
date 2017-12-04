@@ -75,7 +75,6 @@ BigQuery.partitionName = function(row, table) {
 
   var partitionField = PARTITION_FIELDS.find((field) => {
     return timestampFields.indexOf(field) > 0;
-
   })
 
   if (partitionField) {
