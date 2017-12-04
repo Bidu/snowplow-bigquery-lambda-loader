@@ -26,7 +26,7 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
         return;
       }
       var isPartitioned = BigQuery.isPartitioned(table);
-      var tablePartition = isPartitioned ? BigQuery.partition(row, table) : undefined;
+      var tablePartition = isPartitioned ? BigQuery.partitionName(row, table) : undefined;
       // Insert if table is not partitioned or partition column is not defined
       if (!isPartitioned || tablePartition === undefined) {
         table.insert(row, (options || {}), function(err, insertErrors, apiResponse) {
@@ -67,7 +67,7 @@ BigQuery.prototype.table = function(tableName, callback) {
   });
 };
 
-BigQuery.partition = function(row, table) {
+BigQuery.partitionName = function(row, table) {
   var schema = table.metadata.schema.fields;
   var timestampFields = schema.filter((field) => {
     return field.type == 'TIMESTAMP' && field.name != 'root_tstamp';
