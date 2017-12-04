@@ -20,7 +20,7 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
   // and insert in the right partition whenever the table is partitioned
   rows.forEach((row) => {
     // First, we get the table object with all available information
-    this.table(tableName, function(err, table) {
+    this.table(tableName, (err, table) => {
       if (err) {
         console.log(`Sorry! We've got an error while fetching the table ${tableName}.\nERROR: ${err}`);
         return;
@@ -38,7 +38,7 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
         });
       } else {
         // Insert into partitioned table
-        this.table(tablePartition, function(err, table) {
+        this.table(tablePartition, (err, table) => {
           if (err) {
             console.log(`Sorry! We've got an error while fetching the table ${tablePartition}.\nERROR: ${err}`);
             return;
