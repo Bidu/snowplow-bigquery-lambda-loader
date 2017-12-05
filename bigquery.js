@@ -37,7 +37,7 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
             return console.log('Error while inserting data: %s', err);
           }
           console.log('Response of insert into %s, %s', table['id'], JSON.stringify(apiResponse, null, 2));
-          console.log('Inserted %d row(s)', rows.length);
+          console.log('Inserted 1 row.');
         });
       } else {
         // Insert into partitioned table
@@ -51,7 +51,7 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
               return console.log('Error while inserting data: %s', err);
             }
             console.log('Response of insert into %s, %s', table['id'], JSON.stringify(apiResponse, null, 2));
-            console.log('Inserted %d row(s)', rows.length);
+            console.log('Inserted 1 row.');
           });
         });
 
