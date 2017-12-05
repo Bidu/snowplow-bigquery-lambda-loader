@@ -1,5 +1,14 @@
 String.prototype.toUnderscore = function(){
-	return this.replace(/([^_])([A-Z])/g, "$1_$2").toLowerCase();
+  return this.replace(/([^_])([A-Z])/g, "$1_$2").toLowerCase();
+};
+
+String.prototype.toTableName = function(){
+  const schemaInfo = this.replace('iglu:', '').split('/');
+  return [
+    schemaInfo[0],
+    schemaInfo[1],
+    schemaInfo[3].split('-')[0]
+  ].join('_').replace(/(\.)/gi, '_').toUnderscore();
 };
 
 Object.defineProperty(

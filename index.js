@@ -1,43 +1,26 @@
-var DataBase = require('./db.js');
-var Formatter = require('./formatter.js');
+var BigQuery = require('./bigquery.js');
+var Parser = require('./parser.js');
 
-require('./extend.js');
-
-var db = new DataBase();
+var bq = new BigQuery();
 
 exports.handler = (event, context, callback) => {
   var events = [],
-      nestedData = {};
+    nestedData = {};
 
   event.Records.forEach((record) => {
     const payload = new Buffer(record.kinesis.data, 'base64').toString();
-    const event = Formatter.event(payload),
-          contexts = Formatter.contexts(event);
+    const event = Parser.event(payload),
+      contexts = Parser.contexts(event);
 
-    Object.keys(contexts).forEach((c) => {
-      var key = DataBase.toTableName(c);
-
-      if(nestedData[key] === undefined) {
-        nestedData[key] = [];
-      }
-
-      nestedData[key].push(contexts[c]);
-    });
+      Parser.nestedEvents(contexts, nestedData);
 
     events.push(event);
   });
 
-  db.insertInto('events', events, { raw: true });
+  bq.insertInto('events', events, { raw: true });
 
-  db.tables(function(tables) {
-    Object.keys(nestedData).forEach((table) => {
-      if(tables.indexOf(table) === -1) {
-        console.log('Table %s not found into database', table);
-        return;
-      }
-
-      db.insertInto(table, nestedData[table]);
-    });
+  Object.keys(nestedData).forEach((tableName) => {
+    bq.insertInto(tableName, nestedData[tableName]);
   });
 
   callback(null, `Successfully processed ${event.Records.length} records.`);
