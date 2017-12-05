@@ -1,5 +1,6 @@
 'use strict';
 var BigQueryClient = require('google-cloud/node_modules/@google-cloud/bigquery');
+var extend = require('util')._extend;
 
 const projectData = require('./auth.json');
 
