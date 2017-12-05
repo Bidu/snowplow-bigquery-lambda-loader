@@ -1,3 +1,4 @@
+'use strict';
 var BigQueryClient = require('google-cloud/node_modules/@google-cloud/bigquery');
 
 const projectData = require('./auth.json');
@@ -18,18 +19,19 @@ var BigQuery = function() {
 BigQuery.prototype.insertInto = function(tableName, rows, options) {
   //Here I should get the table based on name
   // and insert in the right partition whenever the table is partitioned
-  rows.forEach((row) => {
+  this.table(tableName, (err, table) => {
     // First, we get the table object with all available information
-    this.table(tableName, (err, table) => {
-      if (err) {
-        console.log(`Sorry! We've got an error while fetching the table ${tableName}.\nERROR: ${err}`);
-        return;
-      }
-      var isPartitioned = BigQuery.isPartitioned(table);
-      var tablePartition = isPartitioned ? BigQuery.partitionName(row, table) : undefined;
+    if (err) {
+      console.log(`Sorry! We've got an error while fetching the table ${tableName}.\nERROR: ${err}`);
+      return;
+    }
+    var isPartitioned = BigQuery.isPartitioned(table);
+    rows.forEach((row) => {
+      let localOptions = extend({}, options);
       // Insert if table is not partitioned or partition column is not defined
-      if (!isPartitioned || tablePartition === undefined) {
-        table.insert(row, (options || {}), function(err, insertErrors, apiResponse) {
+      var tablePartition = isPartitioned ? BigQuery.partitionName(row, table) : undefined;
+      if (!isPartitioned) {
+        table.insert(row, localOptions, function(err, insertErrors, apiResponse) {
           if (err) {
             return console.log('Error while inserting data: %s', err);
           }
@@ -43,7 +45,7 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
             console.log(`Sorry! We've got an error while fetching the table ${tablePartition}.\nERROR: ${err}`);
             return;
           }
-          table.insert(row, options || {}, function(err, insertErrors, apiResponse) {
+          table.insert(row, localOptions, function(err, insertErrors, apiResponse) {
             if (err) {
               return console.log('Error while inserting data: %s', err);
             }
