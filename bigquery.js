@@ -18,6 +18,13 @@ var BigQuery = function() {
 };
 
 BigQuery.prototype.insertInto = function(tableName, rows, options) {
+  if(process.env['DEBUG']) {
+    console.log(`[DEBUG] Inserting into '${tableName}', ` +
+                  `with option '${JSON.stringify(options, null, 2)}', ` +
+                  `follow rows: '${JSON.stringify(rows, null, 2)}'`);
+    console.log(rows);
+  }
+
   //Here I should get the table based on name
   // and insert in the right partition whenever the table is partitioned
   this.table(tableName, (err, table) => {
