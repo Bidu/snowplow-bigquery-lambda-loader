@@ -6,7 +6,7 @@ var extend = require('util')._extend;
 const projectData = require('./auth.json');
 
 const config = {
-  projectId: 'oliver-26234'
+  projectId: projectData['project_id']
 };
 
 const ds = 'atomic';
