@@ -1,23 +1,23 @@
 'use strict';
-var BigQueryClient = require('google-cloud/node_modules/@google-cloud/bigquery');
+const { BigQuery } = require('@google-cloud/bigquery');
+
 var extend = require('util')._extend;
 
 const projectData = require('./auth.json');
 
 const config = {
-  projectId: projectData['project_id'],
-  keyFilename: './auth.json'
+  projectId: 'oliver-26234'
 };
 
 const ds = 'atomic';
 
 const PARTITION_FIELDS = process.env['PARTITION_FIELDS'].split(',');
 
-var BigQuery = function() {
-  this.conn = BigQueryClient(config);
+var BigQueryClient = function() {
+  this.conn = new BigQuery(config);
 };
 
-BigQuery.prototype.insertInto = function(tableName, rows, options) {
+BigQueryClient.prototype.insertInto = function(tableName, rows, options) {
   if(process.env['DEBUG']) {
     console.log(`[DEBUG] Inserting into '${tableName}', ` +
                   `with option '${JSON.stringify(options, null, 2)}', ` +
@@ -33,11 +33,11 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
       console.log(`Sorry! We've got an error while fetching the table ${tableName}.\nERROR: ${err}`);
       return;
     }
-    var isPartitioned = BigQuery.isPartitioned(table);
+    var isPartitioned = BigQueryClient.isPartitioned(table);
     rows.forEach((row) => {
       let localOptions = extend({}, options);
       // Insert if table is not partitioned or partition column is not defined
-      var tablePartition = isPartitioned ? BigQuery.partitionName(row, table) : undefined;
+      var tablePartition = isPartitioned ? BigQueryClient.partitionName(row, table) : undefined;
       if (!isPartitioned) {
         table.insert(row, localOptions, function(err, insertErrors, apiResponse) {
           if (err) {
@@ -67,7 +67,7 @@ BigQuery.prototype.insertInto = function(tableName, rows, options) {
   });
 };
 
-BigQuery.prototype.table = function(tableName, callback) {
+BigQueryClient.prototype.table = function(tableName, callback) {
   var dataset = this.conn.dataset(ds);
   dataset.table(tableName).get(function(err, table, apiResponse) {
     if (err) {
@@ -77,7 +77,7 @@ BigQuery.prototype.table = function(tableName, callback) {
   });
 };
 
-BigQuery.partitionName = function(row, table) {
+BigQueryClient.partitionName = function(row, table) {
   var schema = table.metadata.schema.fields;
   var timestampFields = schema.filter((field) => {
     return field.type == 'TIMESTAMP' && field.name != 'root_tstamp';
@@ -89,14 +89,14 @@ BigQuery.partitionName = function(row, table) {
 
   if (partitionField) {
     var partitionDate = row[partitionField].substring(0, 10).replace(/\-/g, '');
-    return [BigQuery.tableName(table), partitionDate].join('$');
+    return [BigQueryClient.tableName(table), partitionDate].join('$');
   }
 
-  return BigQuery.tableName(table);
+  return BigQueryClient.tableName(table);
 };
 
-BigQuery.tableName = (table) => table['metadata']['tableReference']['tableId'];
+BigQueryClient.tableName = (table) => table['metadata']['tableReference']['tableId'];
 
-BigQuery.isPartitioned = (table) => table['metadata']['timePartitioning'] !== undefined;
+BigQueryClient.isPartitioned = (table) => table['metadata']['timePartitioning'] !== undefined;
 
-module.exports = BigQuery;
+module.exports = BigQueryClient;
