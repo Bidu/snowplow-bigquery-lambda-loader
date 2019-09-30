@@ -2,7 +2,7 @@
   "name": "snowplow-bigquery-lambda-loader",
   "version": "0.0.1",
   "devDependencies": {
-    "google-cloud" : "^0.43.0"
+    "@google-cloud/bigquery": "^4.2.1"
   },
   "private": true,
   "dependencies": {}

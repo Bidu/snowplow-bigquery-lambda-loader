@@ -1,7 +1,7 @@
-var BigQuery = require('./bigquery.js');
+var BigQueryClient = require('./bigquery.js');
 var Parser = require('./parser.js');
 
-var bq = new BigQuery();
+var bq = new BigQueryClient();
 
 exports.handler = (event, context, callback) => {
   var events = [],
